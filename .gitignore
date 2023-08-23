@@ -1,4 +1,10 @@
 
-cabproject/.env
+cabconsumidor/.env
 
-cabproject/.vscode/launch.json
+cabconsumidor/.vscode/launch.json
+
+/build
+
+.vscode
+
+.env
