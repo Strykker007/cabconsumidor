@@ -71,10 +71,10 @@ class Formatters {
     return 'CEP Inválido';
   }
 
-  static String formatDistance(double distanceInMeters) {
+  static String formatDistance(num distanceInMeters) {
     double distanceInKm =
         distanceInMeters / 1000; // Convertendo para quilômetros
-    return '${distanceInKm.toStringAsFixed(2)} km'; // Formatando para duas casas decimais
+    return '${distanceInKm.toStringAsFixed(distanceInKm <= 0 ? 0 : 2)} km'; // Formatando para duas casas decimais
   }
 
   static String dateToStringDateWithHifen(

@@ -4,7 +4,6 @@ import 'package:cabconsumidor/app/core/shared/widgets/error/request_error_widget
 import 'package:cabconsumidor/app/core/shared/widgets/loading/loading_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/text_field/text_form_field_widget.dart';
 import 'package:cabconsumidor/app/modules/sellers/widgets/seller_tile_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cabconsumidor/app/modules/sellers/sellers_store.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +18,22 @@ class SellersPage extends StatefulWidget {
 
 class SellersPageState extends State<SellersPage> {
   final SellersStore store = Modular.get();
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
-    store.getSellersList();
+    store.getSellersList().catchError((onError) {
+      Helpers.showDefaultDialog(
+        context,
+        RequestErrorWidget(
+          error: onError,
+          buttonText: 'Fechar',
+          onPressed: () {
+            Modular.to.pop();
+          },
+        ),
+      );
+    });
     super.initState();
   }
 
@@ -48,19 +57,31 @@ class SellersPageState extends State<SellersPage> {
                   icon: const Icon(Icons.search),
                   onPressed: () async {
                     if (searchController.text.isEmpty) {
-                      await store.getSellersList();
+                      await store.getSellersList().catchError((onError) {
+                        Helpers.showDefaultDialog(
+                          context,
+                          RequestErrorWidget(
+                            error: onError,
+                            buttonText: 'Fechar',
+                            onPressed: () {
+                              Modular.to.pop();
+                            },
+                          ),
+                        );
+                      });
                     } else {
                       store.params.name = searchController.text;
                       await store.getSellersList().catchError((onError) {
                         Helpers.showDefaultDialog(
-                            context,
-                            RequestErrorWidget(
-                              error: onError,
-                              buttonText: 'Fechar',
-                              onPressed: () {
-                                Modular.to.pop();
-                              },
-                            ));
+                          context,
+                          RequestErrorWidget(
+                            error: onError,
+                            buttonText: 'Fechar',
+                            onPressed: () {
+                              Modular.to.pop();
+                            },
+                          ),
+                        );
                       });
                     }
                   },
@@ -95,7 +116,18 @@ class SellersPageState extends State<SellersPage> {
                     }
                     return RefreshIndicator(
                       onRefresh: () async {
-                        await store.getSellersList();
+                        await store.getSellersList().catchError((onError) {
+                          Helpers.showDefaultDialog(
+                            context,
+                            RequestErrorWidget(
+                              error: onError,
+                              buttonText: 'Fechar',
+                              onPressed: () {
+                                Modular.to.pop();
+                              },
+                            ),
+                          );
+                        });
                       },
                       child: ListView.builder(
                         itemCount: store.state.length,

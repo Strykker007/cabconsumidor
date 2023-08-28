@@ -84,6 +84,83 @@ class MenuListWidgets extends StatelessWidget {
           ),
         ),
       ),
+      GestureDetector(
+        onTap: () {
+          Modular.to.pushNamed('/home/purchases', arguments: 'Minhas Compras');
+        },
+        child: Card(
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+            ),
+            height: 50,
+            width: 150,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.card_giftcard_outlined,
+                  size: 40,
+                  color: Theme.of(context).primaryColor,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Minhas Compras',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Colors.black,
+                      ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          Modular.to
+              .pushNamed('/home/depositsHistory', arguments: 'Meus Depósitos');
+        },
+        child: Card(
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+            ),
+            height: 50,
+            width: 150,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.upload_rounded,
+                  size: 40,
+                  color: Theme.of(context).primaryColor,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Meus Depósitos',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Colors.black,
+                      ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
     ];
     return Container(
       height: 150,

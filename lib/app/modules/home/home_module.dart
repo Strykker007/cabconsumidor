@@ -1,13 +1,14 @@
 import 'package:cabconsumidor/app/core/interceptors/auth_interceptor.dart';
 import 'package:cabconsumidor/app/modules/config/config_module.dart';
 import 'package:cabconsumidor/app/modules/deposit/deposit_module.dart';
+import 'package:cabconsumidor/app/modules/deposits_history/deposit_history_module.dart';
 import 'package:cabconsumidor/app/modules/home/home_repository.dart';
 
 import 'package:cabconsumidor/app/modules/home/stores/balance_store.dart';
-import 'package:cabconsumidor/app/modules/home/stores/obscure_balance_store.dart';
 import 'package:cabconsumidor/app/modules/notifications/notifications_module.dart';
 import 'package:cabconsumidor/app/modules/payment/payment_module.dart';
 import 'package:cabconsumidor/app/modules/profile/profile_module.dart';
+import 'package:cabconsumidor/app/modules/purchases/purchases_module.dart';
 import 'package:cabconsumidor/app/modules/sellers/sellers_module.dart';
 import 'package:cabconsumidor/app/modules/transactions/transactions_module.dart';
 import 'package:cabconsumidor/app/modules/transactions/transactions_repository.dart';
@@ -41,7 +42,6 @@ class HomeModule extends Module {
         ),
     ),
     Bind.lazySingleton((i) => BalanceStore()),
-    Bind.lazySingleton((i) => ObscureBalanceStore()),
     Bind.lazySingleton((i) => HomeRepository(i.get<Dio>())),
     Bind.lazySingleton((i) => TransactionsStore()),
     Bind.lazySingleton((i) => TransactionsRepository(i.get<Dio>())),
@@ -57,5 +57,7 @@ class HomeModule extends Module {
     ModuleRoute('/sellers', module: SellersModule()),
     ModuleRoute('/notifications', module: NotificationsModule()),
     ModuleRoute('/payment', module: PaymentModule()),
+    ModuleRoute('/purchases', module: PurchasesModule()),
+    ModuleRoute('/depositsHistory', module: DepositHistoryModule()),
   ];
 }

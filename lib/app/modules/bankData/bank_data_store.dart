@@ -12,7 +12,12 @@ class BankDataStore extends Store<BankDataModel> {
 
   Future<void> updateBankData(BankDataModel bankData) async {
     setLoading(true);
-    await _repository.updateBankData(bankData).then((userUpdated) {
+    await _repository
+        .updateBankData(
+      bankData,
+      userStore.state.user!.userId!,
+    )
+        .then((userUpdated) {
       setLoading(false);
     }).catchError((onError) {
       setLoading(false);

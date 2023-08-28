@@ -32,9 +32,7 @@ class SuccessPaymentPage extends StatelessWidget {
               text: 'Voltar',
               isDisabled: false,
               onPressed: () {
-                Modular.to.pop();
-                Modular.to.pop();
-                Modular.to.pop();
+                Modular.to.popUntil(ModalRoute.withName('/auth/home/'));
               },
               isLoading: false,
             ),

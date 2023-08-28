@@ -22,9 +22,8 @@ class TransactionListWidget extends StatelessWidget {
     final UserStore userStore = Modular.get();
 
     return Container(
-      height: MediaQuery.of(context)
-          .size
-          .height, // Definir altura para ocupar a tela inteira
+      height: MediaQuery.of(context).size.height *
+          0.4, // Definir altura para ocupar a tela inteira
       width: MediaQuery.of(context).size.width * 0.9,
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(

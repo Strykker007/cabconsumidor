@@ -12,7 +12,7 @@ class DepositModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id_consumidor': userId,
-      'valor': amount!.replaceAll(',', '.'),
+      'valor': amount,
     };
   }
 

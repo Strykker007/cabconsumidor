@@ -9,9 +9,16 @@ class BankDataRepository {
     this.client,
   );
 
-  Future<void> updateBankData(BankDataModel bankData) async {
+  Future<void> updateBankData(BankDataModel bankData, int userId) async {
     try {
-      await client.put('/dados-bancario/', data: bankData.toJson());
+      bankData.userId = userId;
+      await client.put(
+        '/dados-bancario/',
+        data: bankData.toJson(),
+        queryParameters: {
+          'id_consumidor': userId,
+        },
+      );
     } catch (e) {
       rethrow;
     }

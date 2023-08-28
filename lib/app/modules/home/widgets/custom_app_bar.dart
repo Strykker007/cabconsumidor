@@ -19,7 +19,10 @@ class CustomAppBar extends StatelessWidget {
           padding: const EdgeInsets.only(right: 18.0),
           child: GestureDetector(
             onTap: () {
-              Modular.to.pushNamed('/home/config/profile');
+              Modular.to.pushNamed(
+                '/home/config/profile',
+                arguments: 'Informações pessoais',
+              );
             },
             child: CircleAvatar(
               radius: 15,

@@ -49,6 +49,24 @@ class PreferencesService {
     );
   }
 
+  Future<void> saveObscureBalancePreference(bool state) async {
+    await SharedPreferences.getInstance().then(
+      (prefs) async {
+        await prefs.setBool('obscureBalance', state);
+      },
+    );
+  }
+
+  Future<bool> getObscureBalancePreference() async {
+    Object? state;
+    await SharedPreferences.getInstance().then(
+      (prefs) async {
+        state = prefs.get('obscureBalance');
+      },
+    );
+    return state as bool;
+  }
+
   Future<CredentialModel?> getSavedUserCredential() async {
     CredentialModel? credential = CredentialModel();
     await SharedPreferences.getInstance().then(

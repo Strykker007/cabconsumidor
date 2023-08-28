@@ -2,6 +2,7 @@ import 'package:cabconsumidor/app/core/interceptors/auth_interceptor.dart';
 import 'package:cabconsumidor/app/core/stores/user_store.dart';
 import 'package:cabconsumidor/app/modules/auth/auth_module.dart';
 import 'package:cabconsumidor/app/modules/auth/auth_repository.dart';
+import 'package:cabconsumidor/app/modules/home/stores/obscure_balance_store.dart';
 import 'package:cabconsumidor/app/modules/register/register_module.dart';
 import 'package:cabconsumidor/app/modules/splash/splash_module.dart';
 import 'package:dio/dio.dart';
@@ -15,6 +16,7 @@ class AppModule extends Module {
   final List<Bind> binds = [
     Bind.lazySingleton((i) => UserStore()),
     Bind.lazySingleton((i) => AuthRepository()),
+    Bind.lazySingleton((i) => ObscureBalanceStore()),
     Bind.lazySingleton(
       (i) => Dio(
         BaseOptions(

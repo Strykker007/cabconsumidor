@@ -674,6 +674,18 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "qr",
+      "rootUri": "file:///Users/tiagolima/.pub-cache/hosted/pub.dev/qr-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "qr_flutter",
+      "rootUri": "file:///Users/tiagolima/.pub-cache/hosted/pub.dev/qr_flutter-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "rx_notifier",
       "rootUri": "file:///Users/tiagolima/.pub-cache/hosted/pub.dev/rx_notifier-2.3.0",
       "packageUri": "lib/",
@@ -950,7 +962,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-08-22T14:37:28.650454Z",
+  "generated": "2023-08-27T01:12:01.456425Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

@@ -4,6 +4,7 @@ import 'package:cabconsumidor/app/core/shared/widgets/appbar/app_bar_widget.dart
 import 'package:cabconsumidor/app/core/shared/widgets/button/default_button_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/dropdown/custom_dropdown_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/error/request_error_widget.dart';
+import 'package:cabconsumidor/app/core/shared/widgets/success/success_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/text_field/text_form_field_widget.dart';
 import 'package:cabconsumidor/app/core/utils/masks.dart';
 import 'package:cabconsumidor/app/modules/address/address_store.dart';
@@ -272,7 +273,18 @@ class AddressPageState extends State<AddressPage> {
                             store.userStore.state.user!.userId.toString(),
                             store.userStore.state.user!,
                           )
-                              .catchError((onError) {
+                              .then((value) {
+                            Helpers.showDefaultDialog(
+                              context,
+                              SuccessWidget(
+                                label: 'Sucesso',
+                                message: 'Informações atualizadas!',
+                                onPressed: () {
+                                  Modular.to.pop();
+                                },
+                              ),
+                            );
+                          }).catchError((onError) {
                             Helpers.showDefaultDialog(
                               context,
                               RequestErrorWidget(

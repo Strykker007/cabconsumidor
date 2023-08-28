@@ -15,9 +15,9 @@ class SellersRepository {
   Future<List<SellerModel>> getSellersList(
       SellerQueryParamsModel params) async {
     try {
-      final locationData = await locationService.getLocationData();
-      params.latitude = locationData!.latitude;
-      params.longitude = locationData.longitude;
+      // final locationData = await locationService.getLocationData();
+      // params.latitude = locationData!.latitude;
+      // params.longitude = locationData.longitude;
       final response = await client.get(
         '/vendedor/',
         queryParameters: params.toMap(),

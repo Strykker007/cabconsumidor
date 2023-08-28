@@ -9,7 +9,9 @@ class SellerModel {
   String? cpfCnpj;
   String? cep;
   int? country;
+  String? countryName;
   int? city;
+  String? cityName;
   String? neighborhood;
   String? address;
   String? number;
@@ -19,7 +21,9 @@ class SellerModel {
   String? website;
   String? transfer;
   String? logo;
-  double? distance;
+  num? distance;
+  double? latitude;
+  double? longitude;
 
   SellerModel({
     this.pk,
@@ -29,7 +33,9 @@ class SellerModel {
     this.cpfCnpj,
     this.cep,
     this.country,
+    this.countryName,
     this.city,
+    this.cityName,
     this.neighborhood,
     this.address,
     this.number,
@@ -40,18 +46,22 @@ class SellerModel {
     this.transfer,
     this.logo,
     this.distance,
+    this.latitude,
+    this.longitude,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'pk': pk,
       'nome': name,
-      'nomeFantasia': fantasyName,
+      'nome_fantasia': fantasyName,
       'email': email,
-      'cpfCnpj': cpfCnpj,
+      'cpf_cnpj': cpfCnpj,
       'cep': cep,
       'estado': country,
+      'estado_nome': countryName,
       'cidade': city,
+      'cidade_nome': cityName,
       'bairro': neighborhood,
       'endereco': address,
       'numero': number,
@@ -62,6 +72,8 @@ class SellerModel {
       'repasse': transfer,
       'logomarca': logo,
       'distancia': distance,
+      'latitude': latitude,
+      'longitude': longitude,
     };
   }
 
@@ -75,7 +87,10 @@ class SellerModel {
       cpfCnpj: map['cpfCnpj'] != null ? map['cpfCnpj'] as String : '',
       cep: map['cep'] != null ? map['cep'] as String : '',
       country: map['estado'] != null ? map['estado'] as int : 0,
+      countryName:
+          map['estado_nome'] != null ? map['estado_nome'] as String : '',
       city: map['cidade'] != null ? map['cidade'] as int : 0,
+      cityName: map['cidade_nome'] != null ? map['cidade_nome'] as String : '',
       neighborhood: map['bairro'] != null ? map['bairro'] as String : '',
       address: map['endereco'] != null ? map['endereco'] as String : '',
       number: map['numero'] != null ? map['numero'] as String : '',
@@ -86,7 +101,9 @@ class SellerModel {
       website: map['website'] != null ? map['website'] as String : '',
       transfer: map['repasse'] != null ? map['repasse'] as String : '',
       logo: map['logomarca'] != null ? map['logomarca'] as String : '',
-      distance: map['distancia'] != null ? map['distancia'] as double : 0,
+      latitude: map['latitude'] != null ? map['latitude'] as double : 0,
+      longitude: map['longitude'] != null ? map['longitude'] as double : 0,
+      distance: map['distancia'] != null ? map['distancia'] as num : 0,
     );
   }
 

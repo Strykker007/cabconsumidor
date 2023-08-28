@@ -20,6 +20,7 @@ class AuthPage extends StatefulWidget {
 
 class AuthPageState extends State<AuthPage> {
   final RemindPasswordStore passwordStore = Modular.get();
+  final ObscureStore obscurePassword = ObscureStore();
   final AuthStore store = Modular.get();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -144,17 +145,17 @@ class AuthPageState extends State<AuthPage> {
                                     .copyWith(
                                       color: Colors.grey.shade600,
                                     ),
-                                // suffixIcon: IconButton(
-                                //   icon: Icon(
-                                //     store.obscureStore.state
-                                //         ? Icons.visibility_off
-                                //         : Icons.visibility,
-                                //     color: Theme.of(context).colorScheme.background,
-                                //   ),
-                                //   onPressed: () {
-                                //     store.obscurePassword();
-                                //   },
-                                // ),
+                                suffix: IconButton(
+                                  icon: Icon(
+                                    store.obscureStore.state
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  onPressed: () {
+                                    store.obscurePassword();
+                                  },
+                                ),
                               );
                             },
                           ),

@@ -1,4 +1,5 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:cabconsumidor/app/core/services/preferences_service.dart';
 import 'package:cabconsumidor/app/core/stores/user_store.dart';
 import 'package:cabconsumidor/app/core/utils/utils.dart';
 import 'package:cabconsumidor/app/modules/home/stores/balance_store.dart';
@@ -19,8 +20,17 @@ class BalanceWidget extends StatefulWidget {
 
 class _BalanceWidgetState extends State<BalanceWidget> {
   final ObscureBalanceStore obscureBalanceStore = Modular.get();
+  final PreferencesService service = PreferencesService();
   final TransactionsStore store = Modular.get();
   final UserStore userStore = Modular.get();
+
+  @override
+  void initState() {
+    service.getObscureBalancePreference().then((value) {
+      obscureBalanceStore.updateState(value);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

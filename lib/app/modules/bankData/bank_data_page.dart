@@ -5,6 +5,7 @@ import 'package:cabconsumidor/app/core/shared/widgets/button/default_button_widg
 import 'package:cabconsumidor/app/core/shared/widgets/dropdown/custom_dropdown_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/error/request_error_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/loading/loading_widget.dart';
+import 'package:cabconsumidor/app/core/shared/widgets/success/success_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/text_field/text_form_field_widget.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cabconsumidor/app/modules/bankData/bank_data_store.dart';
@@ -88,6 +89,7 @@ class BankDataPageState extends State<BankDataPage> {
                     onChange: (account) {
                       store.state.account = account;
                     },
+                    keyboardType: TextInputType.number,
                     label: 'NUMERO DA CONTA',
                     labelStyle:
                         Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -113,6 +115,7 @@ class BankDataPageState extends State<BankDataPage> {
                     onChange: (agency) {
                       store.state.agency = agency;
                     },
+                    keyboardType: TextInputType.number,
                     label: 'AGENCIA',
                     labelStyle:
                         Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -135,6 +138,7 @@ class BankDataPageState extends State<BankDataPage> {
                       size: 15,
                       color: Theme.of(context).primaryColor,
                     ),
+                    keyboardType: TextInputType.number,
                     onChange: (agencyDigit) {
                       store.state.dvAgency = agencyDigit;
                     },
@@ -169,7 +173,18 @@ class BankDataPageState extends State<BankDataPage> {
                                 .updateBankData(
                               store.state,
                             )
-                                .catchError((onError) {
+                                .then((value) {
+                              Helpers.showDefaultDialog(
+                                context,
+                                SuccessWidget(
+                                  label: 'Sucesso',
+                                  message: 'Informações atualizadas!',
+                                  onPressed: () {
+                                    Modular.to.pop();
+                                  },
+                                ),
+                              );
+                            }).catchError((onError) {
                               Helpers.showDefaultDialog(
                                 context,
                                 RequestErrorWidget(

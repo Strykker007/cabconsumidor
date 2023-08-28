@@ -121,7 +121,9 @@ class SellerTileWidget extends StatelessWidget {
                                       ),
                                 ),
                                 Text(
-                                  Formatters.formatDistance(seller.distance!),
+                                  Formatters.formatDistance(
+                                    seller.distance!,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme

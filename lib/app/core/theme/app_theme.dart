@@ -159,7 +159,7 @@ class AppTheme {
         onPrimary: Colors.white,
         onSecondary: Colors.black,
         onSurface: Colors.black,
-        primary: Color(0xff3DB64E),
+        primary: Color(0xFFD36221),
         secondary: Color(0xFFFF8902),
         tertiary: Color(0xff8A898E),
         surface: Colors.white,
