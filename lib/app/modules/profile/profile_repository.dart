@@ -1,6 +1,9 @@
+import 'package:cabconsumidor/app/core/models/photo_model.dart';
 import 'package:dio/dio.dart';
 
 import 'package:cabconsumidor/app/core/models/user_model.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileRepository {
   final Dio client;
@@ -38,25 +41,15 @@ class ProfileRepository {
   //   }
   // }
 
-  // Future<String> updateUserPhoto(String userId, XFile? file) async {
-  //   try {
-  //     final metadata = SettableMetadata(
-  //       contentType: 'image/jpeg',
-  //       customMetadata: {'picked-file-path': file!.path},
-  //     );
-
-  //     Reference ref =
-  //         _storage.ref().child('users').child(userId).child(file.name);
-  //     await ref.putFile(io.File(file.path), metadata);
-
-  //     final String url = await ref.getDownloadURL();
-
-  //     await firebaseAuth.currentUser!.updatePhotoURL(url);
-
-  //     return ref.getDownloadURL();
-  //   } on FirebaseAuthException catch (e) {
-  //     final Exception error = FirebaseExceptions.getErrorException(e);
-  //     throw error;
-  //   }
-  // }
+  Future<String?> updateUserPhoto(PhotoModel photo) async {
+    try {
+      final Response response = await client.put(
+        '/user-img/',
+        data: photo.toJson(),
+      );
+      return dotenv.env['BASE_URL']! + response.data['imagem'];
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

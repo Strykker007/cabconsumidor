@@ -89,8 +89,10 @@ class AuthInterceptor extends Interceptor {
         ),
       );
 
+      Modular.to.pop();
+
       Modular.to.popUntil(ModalRoute.withName('/'));
-      Modular.to.navigate('/presentation/letsGo');
+      Modular.to.pushNamed('/auth');
       log('Sessão do beneficiário expirou!');
     }
     handler.next(err);

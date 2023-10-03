@@ -64,7 +64,7 @@ class DepositHistoryPageState extends State<DepositHistoryPage> {
                       },
                       itemBuilder: (context, index) {
                         return DepositHistoryTileWidget(
-                          purchase: store.state[index],
+                          deposit: store.state[index],
                         );
                       },
                     )

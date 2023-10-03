@@ -13,7 +13,7 @@ class SuccessWidget extends StatelessWidget {
     Key? key,
     this.buttonText = 'Fechar',
     this.onPressed,
-    this.label,
+    this.label = '',
     this.message = '',
   }) : super(key: key);
 

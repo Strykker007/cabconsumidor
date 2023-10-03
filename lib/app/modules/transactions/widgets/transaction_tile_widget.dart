@@ -15,23 +15,28 @@ class TransactionTileWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            icon(transaction.oparationType!)!,
-            const SizedBox(
-              height: 5,
+            Row(
+              children: [
+                icon(transaction.oparationType!)!,
+                const SizedBox(
+                  width: 5,
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  'R\$ ${transaction.amount!}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Colors.grey.shade700, fontSize: 17),
+                ),
+              ],
             ),
+            const SizedBox(height: 5),
             Text(
-              'R\$ ${transaction.amount!}',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: Colors.grey.shade700, fontSize: 17),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              transaction.operationDescription!,
+              'ID: ${transaction.id.toString()}',
               style:
                   Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 12),
-            ),
+            )
           ],
         ),
         const Spacer(),
@@ -47,7 +52,7 @@ class TransactionTileWidget extends StatelessWidget {
                   size: 15,
                 ),
                 Text(
-                  Formatters.dateAndMonthToStringDate(
+                  Formatters.dateToStringDate(
                     Formatters.stringToDate(transaction.date!),
                   ),
                   style: Theme.of(context)
@@ -73,6 +78,11 @@ class TransactionTileWidget extends StatelessWidget {
             ),
             const SizedBox(
               height: 10,
+            ),
+            Text(
+              transaction.operationDescription!,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 12),
             ),
             // Text(
             //   transaction.name!,

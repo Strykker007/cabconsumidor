@@ -8,10 +8,12 @@ import 'package:cabconsumidor/app/core/stores/obscure_store.dart';
 import 'package:cabconsumidor/app/core/utils/formaters.dart';
 import 'package:cabconsumidor/app/core/utils/masks.dart';
 import 'package:cabconsumidor/app/modules/register/stores/checkbox_store.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cabconsumidor/app/modules/register/stores/register_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterPage extends StatefulWidget {
   final String title;
@@ -21,8 +23,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class RegisterPageState extends State<RegisterPage> {
+  late TapGestureRecognizer _onTapRecognizer;
   final RegisterStore store = Modular.get();
-  final CheckboxStore checkboxStore = Modular.get();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController cpfController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -35,6 +37,7 @@ class RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     log(Modular.to.navigateHistory.first.name);
+    _onTapRecognizer = TapGestureRecognizer()..onTap = termsAndConditionsLink;
     super.initState();
   }
 
@@ -88,6 +91,7 @@ class RegisterPageState extends State<RegisterPage> {
                   label: 'NOME',
                   onChange: (name) {
                     store.state.name = name;
+                    store.updateForm(store.state);
                   },
                   labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Colors.grey.shade600,
@@ -109,6 +113,7 @@ class RegisterPageState extends State<RegisterPage> {
                   label: 'CPF',
                   onChange: (cpf) {
                     store.state.cpf = cpf;
+                    store.updateForm(store.state);
                   },
                   inputFormatters: [
                     Masks.generateMask('###.###.###-##'),
@@ -134,6 +139,7 @@ class RegisterPageState extends State<RegisterPage> {
                   label: 'EMAIL',
                   onChange: (email) {
                     store.state.email = email;
+                    store.updateForm(store.state);
                   },
                   keyboardType: TextInputType.emailAddress,
                   labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -169,6 +175,7 @@ class RegisterPageState extends State<RegisterPage> {
                       ),
                   onChange: (email) {
                     store.state.email = email;
+                    store.updateForm(store.state);
                   },
                 ),
                 const SizedBox(
@@ -182,6 +189,7 @@ class RegisterPageState extends State<RegisterPage> {
                         .replaceAll(')', '')
                         .replaceAll(' ', '')
                         .replaceAll('-', '');
+                    store.updateForm(store.state);
                   },
                   inputFormatters: [
                     Masks.generateMask('(##) #####-####'),
@@ -208,6 +216,7 @@ class RegisterPageState extends State<RegisterPage> {
                   onChange: (birthDate) {
                     store.state.birthDate =
                         Formaters.stringDateToStringDateWithHifen(birthDate!);
+                    store.updateForm(store.state);
                   },
                   inputFormatters: [
                     Masks.generateMask('##/##/####'),
@@ -237,6 +246,7 @@ class RegisterPageState extends State<RegisterPage> {
                       label: 'SENHA',
                       onChange: (password) {
                         store.state.password = password;
+                        store.updateForm(store.state);
                       },
                       labelStyle:
                           Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -275,28 +285,51 @@ class RegisterPageState extends State<RegisterPage> {
                     child: Row(
                       children: [
                         TripleBuilder(
-                          store: checkboxStore,
+                          store: store.checkboxStore,
                           builder: (context, triple) {
                             return Checkbox(
                               checkColor: Colors.white,
                               fillColor: MaterialStateProperty.all(
                                   Colors.grey.shade600),
-                              value: checkboxStore.state,
+                              value: store.checkboxStore.state,
                               shape: const CircleBorder(),
                               onChanged: (bool? value) {
-                                checkboxStore.updateState(!checkboxStore.state);
+                                store.checkboxStore
+                                    .updateState(!store.checkboxStore.state);
+                                store.updateForm(store.state);
                               },
                             );
                           },
                         ),
-                        Text(
-                          'Eu aceito os termos e condições',
-                          style:
-                              Theme.of(context).textTheme.labelSmall!.copyWith(
-                                    color: Colors.grey.shade600,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Li e aceito os ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall!
+                                    .copyWith(
+                                      color: Colors.grey.shade600,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              TextSpan(
+                                recognizer: _onTapRecognizer,
+                                text: 'termos e condições',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall!
+                                    .copyWith(
+                                      color: Colors.grey.shade600,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -378,7 +411,7 @@ class RegisterPageState extends State<RegisterPage> {
   Widget get registerButtonWidget {
     return Expanded(
       child: DefaultButtonWidget(
-        isDisabled: false,
+        isDisabled: store.registerButtonDisabled,
         isLoading: store.isLoading,
         onPressed: () async {
           // Modular.to.pushNamed('/register/register_success_page');
@@ -401,5 +434,12 @@ class RegisterPageState extends State<RegisterPage> {
         text: 'Cadastrar',
       ),
     );
+  }
+
+  void termsAndConditionsLink() async {
+    final Uri url = Uri.parse('https://google.com');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

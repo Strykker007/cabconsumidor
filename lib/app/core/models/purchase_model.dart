@@ -17,7 +17,7 @@ class PurchaseModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'pk': id,
       'nome_consumidor': name,
       'nome_vendedor': sellerName,
       'valor': amount,
@@ -27,7 +27,7 @@ class PurchaseModel {
 
   factory PurchaseModel.fromMap(Map<String, dynamic> map) {
     return PurchaseModel(
-      id: map['id'] != null ? map['id'] as int : null,
+      id: map['pk'] != null ? map['pk'] as int : null,
       name: map['nome_consumidor'] != null
           ? map['nome_consumidor'] as String
           : null,

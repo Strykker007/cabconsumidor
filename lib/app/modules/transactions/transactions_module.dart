@@ -1,9 +1,12 @@
+import 'package:cabconsumidor/app/modules/transactions/stores/transactions_date_filter_store.dart';
 import 'package:cabconsumidor/app/modules/transactions/transactions_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class TransactionsModule extends Module {
   @override
-  final List<Bind> binds = [];
+  final List<Bind> binds = [
+    Bind((i) => TransactionsDateFilterStore()),
+  ];
 
   @override
   final List<ModularRoute> routes = [

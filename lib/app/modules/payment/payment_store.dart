@@ -26,12 +26,13 @@ class PaymentStore extends Store<bool> {
     String sellerCode,
   ) async {
     setLoading(true);
+    seller = SellerModel();
     await _repository.getSellerData(sellerCode).then((sellerModel) {
       seller = sellerModel;
       setLoading(false);
     }).catchError((onError) {
       setLoading(false);
-      throw onError;
+      setError(onError);
     });
   }
 }

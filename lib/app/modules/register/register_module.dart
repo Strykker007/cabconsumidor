@@ -13,25 +13,27 @@ class RegisterModule extends Module {
   final List<Bind> binds = [
     Bind.lazySingleton((i) => RegisterStore()),
     Bind.lazySingleton((i) => CheckboxStore()),
-    Bind.lazySingleton((i) => RegisterRepository(
-          Dio(
-            BaseOptions(
-              baseUrl: dotenv.env['BASE_URL']! + dotenv.env['API_VERSION']!,
-              connectTimeout: Duration(
-                milliseconds: int.parse(dotenv.env['TIMEOUT']!),
+    Bind.lazySingleton(
+      (i) => RegisterRepository(
+        Dio(
+          BaseOptions(
+            baseUrl: dotenv.env['BASE_URL']! + dotenv.env['API_VERSION']!,
+            connectTimeout: Duration(
+              milliseconds: int.parse(dotenv.env['TIMEOUT']!),
+            ),
+          ),
+        )..interceptors.addAll(
+            [
+              AuthInterceptor(),
+              LogInterceptor(
+                responseHeader: false,
+                responseBody: true,
+                error: false,
               ),
-            ),
-          )..interceptors.addAll(
-              [
-                AuthInterceptor(),
-                LogInterceptor(
-                  responseHeader: false,
-                  responseBody: true,
-                  error: false,
-                ),
-              ],
-            ),
-        )),
+            ],
+          ),
+      ),
+    ),
   ];
 
   @override

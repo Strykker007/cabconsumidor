@@ -34,22 +34,9 @@ class SellerTileWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Colors.black.withOpacity(0.3)),
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/profile/profile_image.svg',
-                        height: 60,
-                      ),
-                      // child:  ClipRRect(
-                      //   borderRadius: BorderRadius.circular(9),
-                      //   child: Image.network(
-                      //     '',
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
+                    SvgPicture.asset(
+                      'assets/profile/profile_image.svg',
+                      height: 60,
                     ),
                     const SizedBox(
                       width: 10,
@@ -103,54 +90,29 @@ class SellerTileWidget extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        if (seller.distance! > 0) const SizedBox(height: 5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Distância: ',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(
-                                        fontSize: 10,
-                                        color: Colors.black,
-                                      ),
-                                ),
-                                Text(
-                                  Formatters.formatDistance(
-                                    seller.distance!,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(
-                                        fontSize: 10,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
+                            Visibility(
+                              visible: seller.distance! > 0,
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    Icons.location_on,
-                                    size: 15,
-                                    color: Colors.grey.shade400,
-                                  ),
-                                  const SizedBox(width: 5),
                                   Text(
-                                    '${seller.address!}, ${seller.number!} - ${seller.neighborhood}',
+                                    'Distância: ',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium!
+                                        .copyWith(
+                                          fontSize: 10,
+                                          color: Colors.black,
+                                        ),
+                                  ),
+                                  Text(
+                                    Formatters.formatDistance(
+                                      seller.distance!,
+                                    ),
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
@@ -162,6 +124,44 @@ class SellerTileWidget extends StatelessWidget {
                                         ),
                                   ),
                                 ],
+                              ),
+                            ),
+                            Visibility(
+                              visible: seller.address!.isNotEmpty ||
+                                  seller.number!.isNotEmpty ||
+                                  seller.neighborhood!.isNotEmpty,
+                              child: const SizedBox(height: 5),
+                            ),
+                            Visibility(
+                              visible: seller.address!.isNotEmpty ||
+                                  seller.number!.isNotEmpty ||
+                                  seller.neighborhood!.isNotEmpty,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      size: 15,
+                                      color: Colors.grey.shade400,
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      '${seller.address!}, ${seller.number!} - ${seller.neighborhood}',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium!
+                                          .copyWith(
+                                            fontSize: 10,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             const SizedBox(height: 5),

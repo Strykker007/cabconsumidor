@@ -145,7 +145,7 @@ class AppTheme {
         letterSpacing: 2,
       ),
       titleMedium: TextStyle(
-        fontFamily: GoogleFonts.playfairDisplay().fontFamily,
+        fontFamily: GoogleFonts.montserrat().fontFamily,
         color: const Color(0xFFD36221),
         fontSize: 25,
         letterSpacing: 2,

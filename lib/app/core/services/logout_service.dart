@@ -7,10 +7,7 @@ class LogoutService {
   static Future<void> logout() async {
     await SharedPreferences.getInstance().then(
       (prefs) async {
-        // prefs.clear();
-        final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
-        await firebaseAuth.signOut();
+        prefs.clear();
 
         Modular.to.popUntil(ModalRoute.withName('/'));
         Modular.to.pushNamed('/');

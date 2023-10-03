@@ -5,7 +5,7 @@ import 'package:cabconsumidor/app/core/utils/utils.dart';
 import 'package:cabconsumidor/app/modules/home/stores/balance_store.dart';
 import 'package:cabconsumidor/app/modules/home/stores/obscure_balance_store.dart';
 import 'package:cabconsumidor/app/modules/home/widgets/balance_loading_widget.dart';
-import 'package:cabconsumidor/app/modules/transactions/transactions_store.dart';
+import 'package:cabconsumidor/app/modules/transactions/stores/transactions_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
@@ -26,6 +26,7 @@ class _BalanceWidgetState extends State<BalanceWidget> {
 
   @override
   void initState() {
+    store.params.userId = userStore.state.user!.userId!.toString();
     service.getObscureBalancePreference().then((value) {
       obscureBalanceStore.updateState(value);
     });
@@ -152,8 +153,7 @@ class _BalanceWidgetState extends State<BalanceWidget> {
                                 if (obscureBalanceStore.state == false) {
                                   // await balanceStore.getBalanceValue(
                                   //     userStore.state.userId!.toString());
-                                  await store.getTransactionsList(
-                                      userStore.state.user!.userId!.toString());
+                                  await store.getTransactionsList();
                                 }
                               },
                               icon: obscureBalanceStore.state

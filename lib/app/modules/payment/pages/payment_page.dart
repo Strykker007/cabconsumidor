@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:cabconsumidor/app/core/enums/buttons_enum.dart';
 import 'package:cabconsumidor/app/core/models/seller_model.dart';
@@ -10,6 +12,7 @@ import 'package:cabconsumidor/app/core/shared/widgets/text_field/text_form_field
 import 'package:cabconsumidor/app/core/stores/user_store.dart';
 import 'package:cabconsumidor/app/core/utils/utils.dart';
 import 'package:cabconsumidor/app/modules/payment/widgets/seller_details_widget.dart';
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -35,9 +38,12 @@ class PaymentPageState extends State<PaymentPage> {
     thousandSeparator: '.', // Separador de milhar
   );
   final TextEditingController codeController = TextEditingController();
+  bool _debounceActive = false;
+  Timer? _debounceTimer;
 
   @override
   void initState() {
+    codeController.addListener(_onTextChanged);
     if (widget.seller != null) {
       codeController.text = widget.seller!.pk!.toString();
       payment.sellerId = widget.seller!.pk;
@@ -45,6 +51,28 @@ class PaymentPageState extends State<PaymentPage> {
     }
     payment.userId = userStore.state.user!.userId;
     super.initState();
+  }
+
+  void _onTextChanged() async {
+    if (_debounceActive) {
+      _debounceActive = false;
+      _debounceTimer!.cancel();
+    }
+
+    _debounceActive = true;
+    _debounceTimer = Timer(const Duration(milliseconds: 750), () async {
+      if (codeController.text.isNotEmpty) {
+        await store.getSellerData(codeController.text).then(
+          (value) {
+            if (store.seller != null) {
+              payment.sellerId = store.seller!.pk;
+            }
+          },
+        );
+      }
+
+      _debounceActive = false;
+    });
   }
 
   @override
@@ -70,7 +98,7 @@ class PaymentPageState extends State<PaymentPage> {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: TextFormFieldWidget(
-                    showCursor: false,
+                    showCursor: true,
                     textInputAction: TextInputAction.done,
                     textAlign: TextAlign.center,
                     controller: amountController,
@@ -111,7 +139,7 @@ class PaymentPageState extends State<PaymentPage> {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: TextFormFieldWidget(
-                    showCursor: false,
+                    showCursor: true,
                     textInputAction: TextInputAction.done,
                     textAlign: TextAlign.center,
                     controller: codeController,
@@ -130,13 +158,7 @@ class PaymentPageState extends State<PaymentPage> {
                           fontSize: 10,
                         ),
                     hintText: 'Código do vendedor',
-                    onChange: (code) async {
-                      await store.getSellerData(code!).then((value) {
-                        if (store.seller != null) {
-                          payment.sellerId = store.seller!.pk;
-                        }
-                      });
-                    },
+                    onChange: (code) async {},
                     suffixIcon: IconButton(
                       onPressed: () async {
                         String? code = await Utils.scanQRCode();
@@ -172,9 +194,26 @@ class PaymentPageState extends State<PaymentPage> {
                   if (triple.isLoading) {
                     return const LoadingWidget();
                   }
-                  if (store.seller == null && widget.seller == null) {
+                  if (triple.event == TripleEvent.error) {
+                    return SizedBox(
+                      height: 70,
+                      child: Center(
+                        child: Text(
+                          'Vendedor não encontrado',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 25,
+                                  ),
+                        ),
+                      ),
+                    );
+                  }
+                  if (store.seller == null && widget.seller == null ||
+                      triple.event == TripleEvent.error) {
                     return Container();
                   }
+
                   return SellerDetailsWidget(
                     seller: store.seller!,
                   );

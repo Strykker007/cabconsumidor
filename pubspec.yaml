@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.0+5
+version: 1.0.1+11
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -13,6 +13,7 @@ dependencies:
   cloud_firestore: ^4.3.1
   cupertino_icons: ^1.0.2
   custom_navigation_bar: ^0.8.2
+  debounce_throttle: ^2.0.0
   dio: ^5.2.1+1
   firebase_auth: ^4.6.3
   firebase_core: ^2.2.0

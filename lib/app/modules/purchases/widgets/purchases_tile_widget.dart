@@ -25,9 +25,9 @@ class PurchasesTileWidget extends StatelessWidget {
                   .bodySmall!
                   .copyWith(color: Colors.grey.shade700, fontSize: 17),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Text(
-              'Vendedor: ${purchase.sellerName!}',
+              'ID: ${purchase.id}',
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -48,7 +48,7 @@ class PurchasesTileWidget extends StatelessWidget {
                   size: 15,
                 ),
                 Text(
-                  Formatters.dateAndMonthToStringDate(
+                  Formatters.dateToStringDate(
                     Formatters.stringToDate(purchase.date!),
                   ),
                   style: Theme.of(context)
@@ -73,16 +73,14 @@ class PurchasesTileWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
-            // Text(
-            //   transaction.name!,
-            //   textAlign: TextAlign.right,
-            //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            //       fontSize: 12,
-            //       fontWeight: FontWeight.bold,
-            //       color: Colors.black),
-            // )
+            Text(
+              purchase.sellerName!,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 12,
+                  ),
+            ),
           ],
         ),
       ],

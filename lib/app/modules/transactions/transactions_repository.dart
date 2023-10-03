@@ -1,3 +1,4 @@
+import 'package:cabconsumidor/app/core/models/transaction_params_model.dart';
 import 'package:cabconsumidor/app/core/models/transaction_register_model.dart';
 import 'package:dio/dio.dart';
 
@@ -8,11 +9,11 @@ class TransactionsRepository {
   );
 
   Future<List<TransactionRegisterModel>> getTransactionsList(
-      String userId) async {
+      TransactionParamsModel params) async {
     try {
       final response = await client.get(
         '/transacoes/',
-        queryParameters: {'id_consumidor': userId},
+        queryParameters: params.toMap(),
       );
       List<TransactionRegisterModel> transactions = List.empty(growable: true);
 

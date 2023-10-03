@@ -22,8 +22,8 @@ class SellerModel {
   String? transfer;
   String? logo;
   num? distance;
-  double? latitude;
-  double? longitude;
+  num? latitude;
+  num? longitude;
 
   SellerModel({
     this.pk,
@@ -101,9 +101,9 @@ class SellerModel {
       website: map['website'] != null ? map['website'] as String : '',
       transfer: map['repasse'] != null ? map['repasse'] as String : '',
       logo: map['logomarca'] != null ? map['logomarca'] as String : '',
-      latitude: map['latitude'] != null ? map['latitude'] as double : 0,
-      longitude: map['longitude'] != null ? map['longitude'] as double : 0,
-      distance: map['distancia'] != null ? map['distancia'] as num : 0,
+      latitude: map['latitude'] != null ? map['latitude'] as num : 0.0,
+      longitude: map['longitude'] != null ? map['longitude'] as num : 0.0,
+      distance: map['distancia'] != null ? map['distancia'] as num : 0.0,
     );
   }
 

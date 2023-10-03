@@ -8,6 +8,7 @@ class PresentationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -81,23 +82,26 @@ class PresentationPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomSheet: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Divider(
-            thickness: 1,
-            color: Colors.grey,
-          ),
-          Text(
-            'Consumidor',
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  fontSize: 15,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          const SizedBox(height: 5),
-        ],
+      bottomSheet: Container(
+        color: Colors.white10,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Divider(
+              thickness: 1,
+              color: Colors.grey,
+            ),
+            Text(
+              'Consumidor',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 15,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:cabconsumidor/app/modules/deposits_history/deposit_history_modul
 import 'package:cabconsumidor/app/modules/home/home_repository.dart';
 
 import 'package:cabconsumidor/app/modules/home/stores/balance_store.dart';
+import 'package:cabconsumidor/app/modules/home/stores/home_transaction_list_filter_store.dart';
 import 'package:cabconsumidor/app/modules/notifications/notifications_module.dart';
 import 'package:cabconsumidor/app/modules/payment/payment_module.dart';
 import 'package:cabconsumidor/app/modules/profile/profile_module.dart';
@@ -12,7 +13,7 @@ import 'package:cabconsumidor/app/modules/purchases/purchases_module.dart';
 import 'package:cabconsumidor/app/modules/sellers/sellers_module.dart';
 import 'package:cabconsumidor/app/modules/transactions/transactions_module.dart';
 import 'package:cabconsumidor/app/modules/transactions/transactions_repository.dart';
-import 'package:cabconsumidor/app/modules/transactions/transactions_store.dart';
+import 'package:cabconsumidor/app/modules/transactions/stores/transactions_store.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -42,6 +43,7 @@ class HomeModule extends Module {
         ),
     ),
     Bind.lazySingleton((i) => BalanceStore()),
+    Bind.lazySingleton((i) => HomeTransactionListFilterStore()),
     Bind.lazySingleton((i) => HomeRepository(i.get<Dio>())),
     Bind.lazySingleton((i) => TransactionsStore()),
     Bind.lazySingleton((i) => TransactionsRepository(i.get<Dio>())),

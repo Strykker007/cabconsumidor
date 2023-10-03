@@ -1,3 +1,4 @@
+import 'package:cabconsumidor/app/core/services/preferences_service.dart';
 import 'package:cabconsumidor/app/core/stores/user_store.dart';
 import 'package:cabconsumidor/app/modules/splash/splash_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,10 +10,11 @@ class SplashStore extends Store<int> {
   final SplashRepository _repository = Modular.get();
   final UserStore userStore = Modular.get();
 
-  Future<void> getUserSession(String userId) async {
-    await _repository.getCurrentUser(userId).then((user) {
-      userStore.state.user = user;
-      userStore.update(userStore.state);
+  Future<void> getUserSession() async {
+    // if (userId == null) return;
+    await _repository.getCurrentUser().then((user) async {
+      userStore.update(user);
+      await _repository.verifyToken(user.jwt!.token!).catchError((onError) {});
     }).catchError((onError) {
       throw onError;
     });

@@ -7,21 +7,30 @@ import 'package:cabconsumidor/app/modules/auth/auth_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
-class AuthStore extends Store<bool> {
+class AuthStore extends Store<CredentialModel> {
   final ObscureStore obscureStore = Modular.get();
   final UserStore userStore = Modular.get();
   final AuthRepository _authRepository = Modular.get();
   late CredentialModel credentialModel = CredentialModel();
   final PreferencesService service = PreferencesService();
-  AuthStore() : super(true);
+  AuthStore() : super(CredentialModel(username: '', password: ''));
 
   void obscurePassword() {
     obscureStore.updateState(!obscureStore.state);
   }
 
-  Future<void> recoverPassword(String email) async {
-    // obscureStore.updateState(!obscureStore.state);
+  void updateState(CredentialModel model) {
+    update(model, force: true);
   }
+
+  bool isValidFields() {
+    if (state.username!.isEmpty || state.password!.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<void> authenticate(CredentialModel credential) async {
     setLoading(true);
     await _authRepository.authenticate(credential).then((jwt) async {

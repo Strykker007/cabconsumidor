@@ -145,10 +145,9 @@ class ProfilePageState extends State<ProfilePage> {
                           ),
                           child: IconButton(
                             onPressed: () async {
-                              // final XFile? file = await pickerService.pickImage(
-                              //     source: ImageSource.gallery);
-                              // await store.userStore.updateUserPhoto(
-                              //     store.userStore.store.userStore.state.user!.userId!.toString(), file);
+                              final XFile? file = await pickerService.pickImage(
+                                  source: ImageSource.gallery);
+                              await store.updateUserPhoto(file);
                             },
                             icon: const Icon(
                               Icons.edit_outlined,

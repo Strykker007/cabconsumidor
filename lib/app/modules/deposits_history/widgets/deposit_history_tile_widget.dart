@@ -3,8 +3,8 @@ import 'package:cabconsumidor/app/core/services/formatters.dart';
 import 'package:flutter/material.dart';
 
 class DepositHistoryTileWidget extends StatelessWidget {
-  final DepositHistoryModel purchase;
-  const DepositHistoryTileWidget({super.key, required this.purchase});
+  final DepositHistoryModel deposit;
+  const DepositHistoryTileWidget({super.key, required this.deposit});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,12 @@ class DepositHistoryTileWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // icon(purchase.oparationType!)!,
+            // icon(deposit.oparationType!)!,
             const SizedBox(
               height: 5,
             ),
             Text(
-              'R\$ ${purchase.amount!}',
+              'R\$ ${deposit.amount!}',
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!
@@ -31,15 +31,14 @@ class DepositHistoryTileWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(
-                  color:
-                      purchase.approved! ? Colors.green : Colors.orangeAccent,
+                  color: deposit.approved! ? Colors.green : Colors.orangeAccent,
                 ),
               ),
               child: Text(
-                purchase.approved! ? 'Aprovado' : 'Em análise',
+                deposit.approved! ? 'Aprovado' : 'Em análise',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontSize: 12,
-                      color: purchase.approved!
+                      color: deposit.approved!
                           ? Colors.green
                           : Colors.orangeAccent,
                     ),
@@ -60,8 +59,8 @@ class DepositHistoryTileWidget extends StatelessWidget {
                   size: 15,
                 ),
                 Text(
-                  Formatters.dateAndMonthToStringDate(
-                    Formatters.stringToDate(purchase.updatedDate!),
+                  Formatters.dateToStringDate(
+                    Formatters.stringToDate(deposit.creationDate!),
                   ),
                   style: Theme.of(context)
                       .textTheme
@@ -75,7 +74,7 @@ class DepositHistoryTileWidget extends StatelessWidget {
                 ),
                 Text(
                   Formatters.dateToStringTime(
-                    Formatters.stringToDateTime(purchase.updatedDate!),
+                    Formatters.stringToDateTime(deposit.creationDate!),
                   ),
                   style: Theme.of(context)
                       .textTheme
@@ -84,17 +83,6 @@ class DepositHistoryTileWidget extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            // Text(
-            //   transaction.name!,
-            //   textAlign: TextAlign.right,
-            //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            //       fontSize: 12,
-            //       fontWeight: FontWeight.bold,
-            //       color: Colors.black),
-            // )
           ],
         ),
       ],

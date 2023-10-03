@@ -1,3 +1,4 @@
+import 'package:cabconsumidor/app/core/models/credential_model.dart';
 import 'package:cabconsumidor/app/core/services/helpers.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/button/default_button_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/error/request_error_widget.dart';
@@ -46,6 +47,7 @@ class AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -64,248 +66,252 @@ class AuthPageState extends State<AuthPage> {
           style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 18),
         ),
       ),
-      body: SingleChildScrollView(
-        child: TripleBuilder<AuthStore, bool>(
-          store: store,
-          builder: (context, triple) {
-            return Container(
-              height: MediaQuery.of(context).size.height,
-              padding: const EdgeInsets.all(10),
-              color: Theme.of(context).colorScheme.background,
-              child: Align(
-                child: Column(
-                  children: [
-                    Flexible(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Entre na sua conta e veja seus ganhos',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  color: Colors.grey.shade600,
-                                  fontSize: 28,
-                                ),
-                          ),
-                          const SizedBox(height: 20),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              height: 5,
-                              width: 34,
-                              color: Colors.grey,
+      body: Container(
+        padding: const EdgeInsets.all(15),
+        color: Theme.of(context).colorScheme.background,
+        child: SingleChildScrollView(
+          child: TripleBuilder<AuthStore, CredentialModel>(
+            store: store,
+            builder: (context, triple) {
+              return Column(
+                children: [
+                  Text(
+                    'Entre na sua conta e veja seus ganhos',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.grey.shade600,
+                          fontSize: 28,
+                        ),
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Container(
+                      height: 5,
+                      width: 34,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                  ),
+                  TextFormFieldWidget(
+                    label: 'EMAIL',
+                    labelStyle:
+                        Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Colors.grey.shade600,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2,
                             ),
-                          ),
-                          const Spacer(),
-                          TextFormFieldWidget(
-                            label: 'EMAIL',
-                            labelStyle: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
+                    hintText: 'Digite seu e-mail',
+                    controller: emailController,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Colors.grey.shade600,
+                          fontSize: 17,
+                        ),
+                    onChange: (email) {
+                      store.state.username = email;
+                      store.updateState(store.state);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TripleBuilder<ObscureStore, bool>(
+                    store: store.obscureStore,
+                    builder: (_, obscure) {
+                      return TextFormFieldWidget(
+                        hintText: 'Senha',
+                        label: 'SENHA',
+                        labelStyle:
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(
                                   color: Colors.grey.shade600,
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 2,
                                 ),
-                            hintText: 'Digite seu e-mail',
-                            controller: emailController,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: Colors.grey.shade600,
-                                  fontSize: 17,
-                                ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TripleBuilder<ObscureStore, bool>(
-                            store: store.obscureStore,
-                            builder: (_, obscure) {
-                              return TextFormFieldWidget(
-                                hintText: 'Senha',
-                                label: 'SENHA',
-                                labelStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: Colors.grey.shade600,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 2,
-                                    ),
-                                controller: passwordController,
-                                obscureText: store.obscureStore.state,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: Colors.grey.shade600,
-                                    ),
-                                suffix: IconButton(
-                                  icon: Icon(
-                                    store.obscureStore.state
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  onPressed: () {
-                                    store.obscurePassword();
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                'Lembrar da senha',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall!
-                                    .copyWith(
-                                      color: Colors.grey.shade600,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              const SizedBox(width: 10),
-                              TripleBuilder(
-                                store: passwordStore,
-                                builder: (_, triple) {
-                                  return CupertinoSwitch(
-                                    thumbColor: Colors.white,
-                                    activeColor: Theme.of(context).primaryColor,
-                                    onChanged: (bool value) {
-                                      passwordStore.update(value);
-                                      if (value == false) {
-                                        passwordStore
-                                            .clearUserCredentialSaved();
-                                      }
-                                    },
-                                    value: passwordStore.state,
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            children: [
-                              authButtonWidget,
-                            ],
-                          ),
-                          const Spacer(),
-                          Divider(
-                            thickness: 2,
-                            color: Colors.grey.shade600,
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Ainda não tem conta? ',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge!
-                                      .copyWith(
-                                        fontSize: 13,
-                                        color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    alignment: Alignment.topCenter,
-                                    foregroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                  ),
-                                  onPressed: () {
-                                    Modular.to
-                                        .pushReplacementNamed('/register');
-                                  },
-                                  child: Text(
-                                    'Cadatrar',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge!
-                                        .copyWith(
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.grey.shade600,
-                                          offset: const Offset(0, -5),
-                                        ),
-                                      ],
-                                      color: Colors.transparent,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: Colors.grey.shade600,
-                                      decorationThickness: 2,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                        controller: passwordController,
+                        obscureText: store.obscureStore.state,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Colors.grey.shade600,
                             ),
+                        suffix: IconButton(
+                          icon: Icon(
+                            store.obscureStore.state
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          onPressed: () {
+                            store.obscurePassword();
+                          },
+                        ),
+                        onChange: (password) {
+                          store.state.password = password;
+                          store.updateState(store.state);
+                        },
+                      );
+                    },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Lembrar da senha',
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                              color: Colors.grey.shade600,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      const SizedBox(width: 10),
+                      TripleBuilder(
+                        store: passwordStore,
+                        builder: (_, triple) {
+                          return CupertinoSwitch(
+                            thumbColor: Colors.white,
+                            activeColor: Theme.of(context).primaryColor,
+                            onChanged: (bool value) {
+                              passwordStore.update(value);
+                              if (value == false) {
+                                passwordStore.clearUserCredentialSaved();
+                              }
+                            },
+                            value: passwordStore.state,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    children: [
+                      authButtonWidget,
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  TextButton(
+                    onPressed: () {
+                      Modular.to.pushNamed('/auth/password_recover');
+                    },
+                    child: Text(
+                      'Esqueci minha senha',
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        shadows: [
+                          Shadow(
+                            color: Colors.grey.shade600,
+                            offset: const Offset(0, -5),
                           ),
                         ],
+                        color: Colors.transparent,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.grey.shade600,
+                        decorationThickness: 2,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ],
+                  ),
+                  // const Spacer(),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Divider(
+            thickness: 2,
+            color: Colors.grey.shade600,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Ainda não tem conta? ',
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      fontSize: 13,
+                      color: Colors.grey.shade600,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  alignment: Alignment.topCenter,
+                  foregroundColor: Theme.of(context).colorScheme.background,
+                ),
+                onPressed: () {
+                  Modular.to.pushReplacementNamed('/register');
+                },
+                child: Text(
+                  'Cadatrar',
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    shadows: [
+                      Shadow(
+                        color: Colors.grey.shade600,
+                        offset: const Offset(0, -5),
+                      ),
+                    ],
+                    color: Colors.transparent,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.grey.shade600,
+                    decorationThickness: 2,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            );
-          },
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }
 
   Widget get authButtonWidget {
     return Expanded(
-      child: DefaultButtonWidget(
-        isLoading: store.isLoading,
-        isDisabled: false,
-        onPressed: () async {
-          store.credentialModel.username = emailController.text;
-          store.credentialModel.password = passwordController.text;
-          await store.authenticate(store.credentialModel).then(
-            (value) {
-              if (passwordStore.state) {
-                passwordStore.setUserCredentialSaved(store.credentialModel);
-              }
-              Modular.to.pushReplacementNamed('/auth/home/');
-            },
-          ).catchError(
-            (onError) {
-              Helpers.showDefaultDialog(
-                context,
-                RequestErrorWidget(
-                  error: onError,
-                  buttonText: 'Fechar',
-                  onPressed: () {
-                    Modular.to.pop();
-                  },
-                ),
+      child: TripleBuilder(
+        store: store,
+        builder: (context, triple) {
+          return DefaultButtonWidget(
+            isLoading: store.isLoading,
+            isDisabled: store.isValidFields(),
+            onPressed: () async {
+              store.credentialModel.username = emailController.text;
+              store.credentialModel.password = passwordController.text;
+              await store.authenticate(store.credentialModel).then(
+                (value) {
+                  if (passwordStore.state) {
+                    passwordStore.setUserCredentialSaved(store.credentialModel);
+                  }
+                  Modular.to.pushReplacementNamed('/auth/home/');
+                },
+              ).catchError(
+                (onError) {
+                  Helpers.showDefaultDialog(
+                    context,
+                    RequestErrorWidget(
+                      error: onError,
+                      buttonText: 'Fechar',
+                      onPressed: () {
+                        Modular.to.pop();
+                      },
+                    ),
+                  );
+                },
               );
             },
+            text: 'Entrar',
           );
         },
-        text: 'Entrar',
       ),
     );
   }

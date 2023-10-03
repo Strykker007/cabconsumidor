@@ -1,7 +1,9 @@
 import 'package:cabconsumidor/app/modules/auth/pages/auth_page.dart';
+import 'package:cabconsumidor/app/modules/auth/pages/password_recovery_page.dart';
 import 'package:cabconsumidor/app/modules/auth/stores/auth_store.dart';
 import 'package:cabconsumidor/app/core/stores/obscure_store.dart';
 import 'package:cabconsumidor/app/modules/auth/pages/presentation_page.dart';
+import 'package:cabconsumidor/app/modules/auth/stores/password_recovery_store.dart';
 import 'package:cabconsumidor/app/modules/auth/stores/remind_password_store.dart';
 import 'package:cabconsumidor/app/modules/home/home_module.dart';
 import 'package:dio/dio.dart';
@@ -12,6 +14,7 @@ class AuthModule extends Module {
   final List<Bind> binds = [
     Bind((i) => Dio()),
     Bind.lazySingleton((i) => AuthStore()),
+    Bind.lazySingleton((i) => PasswordRecoveryStore()),
     Bind.lazySingleton((i) => ObscureStore()),
     Bind.lazySingleton((i) => RemindPasswordStore()),
   ];
@@ -20,6 +23,8 @@ class AuthModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute('/home', module: HomeModule()),
     ChildRoute('/login', child: (_, args) => const AuthPage()),
+    ChildRoute('/password_recover',
+        child: (_, args) => const PasswordRecoveryPage()),
     ChildRoute(
       Modular.initialRoute,
       child: (_, args) => const PresentationPage(),

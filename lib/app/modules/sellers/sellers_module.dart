@@ -1,7 +1,8 @@
 import 'package:cabconsumidor/app/modules/sellers/pages/seller_details_page.dart';
 import 'package:cabconsumidor/app/modules/sellers/pages/sellers_page.dart';
 import 'package:cabconsumidor/app/modules/sellers/sellers_repository.dart';
-import 'package:cabconsumidor/app/modules/sellers/sellers_store.dart';
+import 'package:cabconsumidor/app/modules/sellers/stores/seller_params_store.dart';
+import 'package:cabconsumidor/app/modules/sellers/stores/sellers_store.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -9,6 +10,7 @@ class SellersModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.lazySingleton((i) => SellersStore()),
+    Bind.lazySingleton((i) => SellerParamsStore()),
     Bind.lazySingleton((i) => SellersRepository(i.get<Dio>())),
   ];
 

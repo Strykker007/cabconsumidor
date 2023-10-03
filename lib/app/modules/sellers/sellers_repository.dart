@@ -13,7 +13,8 @@ class SellersRepository {
   final LocationService locationService = LocationService();
 
   Future<List<SellerModel>> getSellersList(
-      SellerQueryParamsModel params) async {
+    SellerQueryParamsModel params,
+  ) async {
     try {
       // final locationData = await locationService.getLocationData();
       // params.latitude = locationData!.latitude;

@@ -52,7 +52,7 @@ class DepositPageState extends State<DepositPage> {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: TextFormFieldWidget(
-                  showCursor: false,
+                  showCursor: true,
                   textInputAction: TextInputAction.done,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,

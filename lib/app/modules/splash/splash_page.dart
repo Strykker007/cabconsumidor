@@ -14,15 +14,12 @@ class SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
+    store.getUserSession().then((value) {
+      Modular.to.pushNamed('/home');
+    }).catchError((onError) {
+      Modular.to.pushNamed('/auth');
+    });
     super.initState();
-    // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    // if (firebaseAuth.currentUser != null) {
-    //   store.getUserSession(firebaseAuth.currentUser!.uid).then((value) {
-    //     Modular.to.pushNamed('/home');
-    //   });
-    // } else {
-    Modular.to.pushNamed('/auth');
-    // }
   }
 
   @override

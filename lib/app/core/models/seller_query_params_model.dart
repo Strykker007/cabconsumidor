@@ -3,6 +3,7 @@ import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class SellerQueryParamsModel {
   String? name;
+  double? distance;
   String? phantasyName;
   double? latitude;
   double? longitude;
@@ -10,6 +11,7 @@ class SellerQueryParamsModel {
   int? country;
   SellerQueryParamsModel({
     this.name,
+    this.distance = 0.0,
     this.phantasyName,
     this.latitude,
     this.longitude,
@@ -20,6 +22,7 @@ class SellerQueryParamsModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'nome': name,
+      'distancia': distance,
       'nome_fantasia': phantasyName,
       'latitude': latitude,
       'longitude': longitude,
@@ -31,6 +34,7 @@ class SellerQueryParamsModel {
   factory SellerQueryParamsModel.fromMap(Map<String, dynamic> map) {
     return SellerQueryParamsModel(
       name: map['nome'] != null ? map['nome'] as String : null,
+      distance: map['distancia'] != null ? map['distancia'] as double : null,
       phantasyName:
           map['nome_fantasia'] != null ? map['nome_fantasia'] as String : null,
       latitude: map['latitude'] != null ? map['latitude'] as double : null,

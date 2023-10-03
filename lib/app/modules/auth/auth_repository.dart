@@ -26,6 +26,17 @@ class AuthRepository {
     }
   }
 
+  Future<void> passwordRecovery(String email) async {
+    try {
+      await client.post(
+        '/recuperar-senha/',
+        data: {'email': email},
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<UserModel?> getUserById(String token, String userId) async {
     try {
       final response = await client.get(
