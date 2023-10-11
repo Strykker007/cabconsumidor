@@ -1,8 +1,8 @@
 import 'package:cabconsumidor/app/core/shared/widgets/appbar/app_bar_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/loading/loading_widget.dart';
 import 'package:cabconsumidor/app/core/stores/user_store.dart';
-import 'package:cabconsumidor/app/modules/transactions/stores/transactions_date_filter_store.dart';
-import 'package:cabconsumidor/app/modules/transactions/widgets/date_filter_widget.dart';
+import 'package:cabconsumidor/app/core/stores/transactions_date_filter_store.dart';
+import 'package:cabconsumidor/app/core/shared/widgets/date_filter/date_filter_widget.dart';
 import 'package:cabconsumidor/app/modules/transactions/widgets/transaction_tile_widget.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cabconsumidor/app/modules/transactions/stores/transactions_store.dart';
@@ -20,7 +20,7 @@ class TransactionsPage extends StatefulWidget {
 class TransactionsPageState extends State<TransactionsPage> {
   final TransactionsStore store = Modular.get();
   final UserStore userStore = Modular.get();
-  final TransactionsDateFilterStore transactionsDateFilterStore = Modular.get();
+  final DateFilterStore transactionsDateFilterStore = DateFilterStore();
 
   @override
   void initState() {
@@ -47,7 +47,9 @@ class TransactionsPageState extends State<TransactionsPage> {
               store: transactionsDateFilterStore,
               builder: (context, triple) {
                 return DateFilterWidget(
-                  filterValue: transactionsDateFilterStore.state,
+                  store: transactionsDateFilterStore,
+                  controllerStore: store,
+                  onUpdateFunction: store.getTransactionsList,
                 );
               },
             ),

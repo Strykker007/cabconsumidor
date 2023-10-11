@@ -2,13 +2,16 @@ import 'package:cabconsumidor/app//modules/profile/profile_module.dart';
 import 'package:cabconsumidor/app/modules/address/address_module.dart';
 import 'package:cabconsumidor/app/modules/bankData/bank_data_module.dart';
 import 'package:cabconsumidor/app/modules/change_password/change_password_module.dart';
+import 'package:cabconsumidor/app/modules/config/stores/version_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:cabconsumidor/app/modules/config/config_page.dart';
 
 class ConfigModule extends Module {
   @override
-  final List<Bind> binds = [];
+  final List<Bind> binds = [
+    Bind((i) => VersionStore()),
+  ];
 
   @override
   final List<ModularRoute> routes = [

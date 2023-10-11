@@ -2,18 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Precisamos obter sua localização para que possamos identificar quais os vendedores mais próximos de você</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Precisamos obter sua localização para que possamos identificar quais os vendedores mais próximos de você</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Precisamos obter sua localização para que possamos identificar quais os vendedores mais próximos de você</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Precisamos de acesso a sua galeria para atualizar seu perfil</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Precisamos de acesso ao seu microfone como permissão padrão de alguns pacotes que utilizamos, mas não coletamos nenhum audio sem sua permissão</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Precisamos de acesso a sua camera para que possa tirar fotos e atualizar a foto de seu perfil</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -38,6 +26,18 @@
 	<string>11</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Precisamos de acesso a sua camera para que possa tirar fotos e atualizar a foto de seu perfil</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Precisamos obter sua localização para que possamos identificar quais os vendedores mais próximos de você</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Precisamos obter sua localização para que possamos identificar quais os vendedores mais próximos de você</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Precisamos obter sua localização para que possamos identificar quais os vendedores mais próximos de você</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Precisamos de acesso ao seu microfone como permissão padrão de alguns pacotes que utilizamos, mas não coletamos nenhum audio sem sua permissão</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Precisamos de acesso a sua galeria para atualizar seu perfil</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

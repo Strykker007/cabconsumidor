@@ -36,6 +36,9 @@ class AuthPageState extends State<AuthPage> {
         if (passwordStore.state) {
           emailController.text = passwordStore.credential!.username!;
           passwordController.text = passwordStore.credential!.password!;
+          store.state.username = passwordStore.credential!.username!;
+          store.state.password = passwordStore.credential!.password!;
+          store.updateState(store.state);
         }
       },
     );

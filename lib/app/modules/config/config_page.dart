@@ -4,10 +4,13 @@ import 'package:cabconsumidor/app/core/services/logout_service.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/appbar/app_bar_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/button/default_button_widget.dart';
 import 'package:cabconsumidor/app/core/stores/user_store.dart';
+import 'package:cabconsumidor/app/modules/config/stores/version_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_triple/flutter_triple.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConfigPage extends StatefulWidget {
@@ -19,6 +22,13 @@ class ConfigPage extends StatefulWidget {
 
 class ConfigPageState extends State<ConfigPage> {
   final UserStore userStore = Modular.get();
+  final VersionStore versionStore = Modular.get();
+
+  @override
+  void initState() {
+    versionStore.setVersionApp();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +71,10 @@ class ConfigPageState extends State<ConfigPage> {
                       : ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.network(
-                            userStore.state.user!.profilePhoto!,
+                            userStore.state.user!.profilePhoto!.contains('http')
+                                ? userStore.state.user!.profilePhoto!
+                                : dotenv.env['BASE_URL']! +
+                                    userStore.state.user!.profilePhoto!,
                             height: 50,
                             width: 50,
                             fit: BoxFit.fill,
@@ -145,21 +158,21 @@ class ConfigPageState extends State<ConfigPage> {
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
-                    // Divider(color: Colors.grey.shade600),
-                    // ListTile(
-                    //   onTap: () {
-                    //     Modular.to.pushNamed(
-                    //       '/home/config/changePassword',
-                    //       arguments: 'Alterar senha',
-                    //     );
-                    //   },
-                    //   leading: const Icon(Icons.person),
-                    //   title: Text(
-                    //     'Alterar senha',
-                    //     style: Theme.of(context).textTheme.bodyMedium,
-                    //   ),
-                    //   trailing: const Icon(Icons.arrow_forward_ios),
-                    // ),
+                    Divider(color: Colors.grey.shade600),
+                    ListTile(
+                      onTap: () {
+                        Modular.to.pushNamed(
+                          '/home/config/changePassword',
+                          arguments: 'Alterar senha',
+                        );
+                      },
+                      leading: const Icon(Icons.person),
+                      title: Text(
+                        'Alterar senha',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
                     Divider(color: Colors.grey.shade600),
                     ListTile(
                       onTap: () async {
@@ -175,16 +188,16 @@ class ConfigPageState extends State<ConfigPage> {
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
-                    // Divider(color: Colors.grey.shade600),
-                    // ListTile(
-                    //   onTap: () {},
-                    //   leading: const Icon(Icons.person),
-                    //   title: Text(
-                    //     'Excluir conta',
-                    //     style: Theme.of(context).textTheme.bodyMedium,
-                    //   ),
-                    //   trailing: const Icon(Icons.arrow_forward_ios),
-                    // ),
+                    Divider(color: Colors.grey.shade600),
+                    ListTile(
+                      onTap: () {},
+                      leading: const Icon(Icons.person),
+                      title: Text(
+                        'Excluir conta',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
                     Divider(color: Colors.grey.shade600),
                     ListTile(
                       onTap: () {
@@ -243,6 +256,26 @@ class ConfigPageState extends State<ConfigPage> {
                 ),
               ),
             )
+          ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+              child: TripleBuilder(
+                store: versionStore,
+                builder: (context, triple) {
+                  return Text(
+                    'Versão: ${versionStore.state}',
+                    textAlign: TextAlign.center,
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

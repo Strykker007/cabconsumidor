@@ -7,6 +7,7 @@ import 'package:cabconsumidor/app/core/shared/widgets/success/success_widget.dar
 import 'package:cabconsumidor/app/core/shared/widgets/text_field/text_form_field_widget.dart';
 import 'package:cabconsumidor/app/core/utils/masks.dart';
 import 'package:cabconsumidor/app/modules/profile/profile_store.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -99,7 +100,13 @@ class ProfilePageState extends State<ProfilePage> {
                                       borderRadius: BorderRadius.circular(50),
                                       child: Image.network(
                                         store.userStore.state.user!
-                                            .profilePhoto!,
+                                                .profilePhoto!
+                                                .contains('http')
+                                            ? store.userStore.state.user!
+                                                .profilePhoto!
+                                            : dotenv.env['BASE_URL']! +
+                                                store.userStore.state.user!
+                                                    .profilePhoto!,
                                         height: 50,
                                         width: 50,
                                         fit: BoxFit.fill,

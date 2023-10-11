@@ -1,4 +1,5 @@
 import 'package:cabconsumidor/app/core/models/deposit_history_model.dart';
+import 'package:cabconsumidor/app/core/models/transaction_params_model.dart';
 import 'package:dio/dio.dart';
 
 import 'package:cabconsumidor/app/core/models/seller_model.dart';
@@ -9,14 +10,16 @@ class DepositHistoryRepository {
     this.client,
   );
 
-  Future<List<DepositHistoryModel>> getDepositHistoryList() async {
+  Future<List<DepositHistoryModel>> getDepositHistoryList(
+    TransactionParamsModel params,
+  ) async {
     try {
       // final locationData = await locationService.getLocationData();
       // params.latitude = locationData!.latitude;
       // params.longitude = locationData.longitude;
       final response = await client.get(
         '/deposito/',
-        data: {'id_consumidor': 3},
+        data: params.toMap(),
       );
       List<DepositHistoryModel> deposits = List.empty(growable: true);
 

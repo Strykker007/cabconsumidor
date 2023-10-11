@@ -560,6 +560,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "package_info_plus",
+      "rootUri": "file:///Users/tiagolima/.pub-cache/hosted/pub.dev/package_info_plus-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "package_info_plus_platform_interface",
+      "rootUri": "file:///Users/tiagolima/.pub-cache/hosted/pub.dev/package_info_plus_platform_interface-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path",
       "rootUri": "file:///Users/tiagolima/.pub-cache/hosted/pub.dev/path-1.8.3",
       "packageUri": "lib/",
@@ -980,7 +992,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-09-22T13:10:20.883064Z",
+  "generated": "2023-10-11T22:52:46.078860Z",
   "generator": "pub",
   "generatorVersion": "3.1.0"
 }

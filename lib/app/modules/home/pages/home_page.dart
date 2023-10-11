@@ -44,7 +44,6 @@ class _HomePageState extends State<HomePage> {
 
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
       (timeStamp) {
-        // log(userStore.state.user!.userId!.toString());
         transactionsStore.getTransactionsList();
         balanceStore.getBalanceValue(userStore.state.user!.userId!.toString());
       },

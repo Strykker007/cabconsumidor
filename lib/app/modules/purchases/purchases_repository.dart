@@ -1,4 +1,5 @@
 import 'package:cabconsumidor/app/core/models/purchase_model.dart';
+import 'package:cabconsumidor/app/core/models/transaction_params_model.dart';
 import 'package:dio/dio.dart';
 
 import 'package:cabconsumidor/app/core/models/seller_model.dart';
@@ -9,14 +10,15 @@ class PurchasesRepository {
     this.client,
   );
 
-  Future<List<PurchaseModel>> getPurchasesList() async {
+  Future<List<PurchaseModel>> getPurchasesList(
+      TransactionParamsModel params) async {
     try {
       // final locationData = await locationService.getLocationData();
       // params.latitude = locationData!.latitude;
       // params.longitude = locationData.longitude;
       final response = await client.get(
         '/compras/',
-        data: {'id_consumidor': 3},
+        data: params.toMap(),
       );
       List<PurchaseModel> purchases = List.empty(growable: true);
 

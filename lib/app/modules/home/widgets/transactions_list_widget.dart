@@ -62,6 +62,7 @@ class TransactionListWidget extends StatelessWidget {
             return ListView.separated(
               shrinkWrap: true,
               reverse: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return TransactionTileWidget(
                   transaction: store.state[index],

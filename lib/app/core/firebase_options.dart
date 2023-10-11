@@ -57,19 +57,19 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA7T3RlV1vrEHCPrrY-BXuE0fJx5Y0fqok',
-    appId: '1:607162344664:android:7664b8aba41fa2a79623ad',
-    messagingSenderId: '607162344664',
-    projectId: 'cab-project-798d8',
-    storageBucket: 'cab-project-798d8.appspot.com',
+    apiKey: 'AIzaSyCfmOhOmUlKHlSFuF23sGNBOSf5EoS6x1M',
+    appId: '1:654149674992:android:3f257855f3146524e25f35',
+    messagingSenderId: '654149674992',
+    projectId: 'cab-consumidor',
+    storageBucket: 'cab-consumidor.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDToJZ06CnLp6ozR7Ht80gAmDoBDMRbmNk',
-    appId: '1:607162344664:ios:3e50bdb384a39f929623ad',
-    messagingSenderId: '607162344664',
-    projectId: 'cab-project-798d8',
-    storageBucket: 'cab-project-798d8.appspot.com',
+    apiKey: 'AIzaSyCM92__Jo--OkI_ITvv7ApxInvpUwWA82M',
+    appId: '1:654149674992:ios:ddeac03b1859518de25f35',
+    messagingSenderId: '654149674992',
+    projectId: 'cab-consumidor',
+    storageBucket: 'cab-consumidor.appspot.com',
     iosBundleId: 'com.cab.cabconsumidor',
   );
 }

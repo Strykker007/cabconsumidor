@@ -60,9 +60,7 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       userId: map['pk'],
-      profilePhoto: map['imagem_url'] != null
-          ? dotenv.env['BASE_URL']! + map['imagem_url']
-          : null,
+      profilePhoto: map['imagem_url'],
       name: map['nome'],
       email: map['email'],
       phone: map['celular'],
