@@ -25,15 +25,18 @@ class _HomeTransactionsFilterWidgetState
       builder: (context, triple) {
         return GestureDetector(
           onTap: () async {
-            transactionFilterStore.updateFilter();
-            transactionsStore.params.initialDate =
-                Formaters.dateToStringDateWithHifen(
-              DateTime.now().subtract(
-                Duration(
-                  days: transactionFilterStore.state,
-                ),
-              ),
-            );
+            await transactionFilterStore.updateFilter();
+            transactionsStore.params.initialDate = transactionFilterStore
+                        .state ==
+                    0
+                ? Formaters.dateToStringDateWithHifen(DateTime(2023, 01, 01))
+                : Formaters.dateToStringDateWithHifen(
+                    DateTime.now().subtract(
+                      Duration(
+                        days: transactionFilterStore.state,
+                      ),
+                    ),
+                  );
             await transactionsStore.getTransactionsList();
           },
           child: Row(
@@ -41,13 +44,21 @@ class _HomeTransactionsFilterWidgetState
               const Icon(
                 Icons.keyboard_arrow_down_outlined,
               ),
-              Text(
-                '${triple.state} Dias',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Colors.black45,
-                      fontWeight: FontWeight.bold,
+              triple.state == 0
+                  ? Text(
+                      'Todos',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Colors.black45,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    )
+                  : Text(
+                      '${triple.state} Dias',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Colors.black45,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
-              ),
             ],
           ),
         );

@@ -1,4 +1,7 @@
 import 'package:cabconsumidor/app/core/interceptors/auth_interceptor.dart';
+import 'package:cabconsumidor/app/modules/address/address_repository.dart';
+import 'package:cabconsumidor/app/modules/address/stores/city_list_store.dart';
+import 'package:cabconsumidor/app/modules/address/stores/country_list_store.dart';
 import 'package:cabconsumidor/app/modules/config/config_module.dart';
 import 'package:cabconsumidor/app/modules/deposit/deposit_module.dart';
 import 'package:cabconsumidor/app/modules/deposits_history/deposit_history_module.dart';
@@ -47,6 +50,9 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => HomeRepository(i.get<Dio>())),
     Bind.lazySingleton((i) => TransactionsStore()),
     Bind.lazySingleton((i) => TransactionsRepository(i.get<Dio>())),
+    Bind.lazySingleton((i) => AddressRepository(i.get<Dio>())),
+    Bind.lazySingleton((i) => CountryListStore()),
+    Bind.lazySingleton((i) => CityListStore()),
   ];
 
   @override

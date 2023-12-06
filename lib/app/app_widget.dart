@@ -2,6 +2,7 @@ import 'package:cabconsumidor/app/core/services/preferences_service.dart';
 import 'package:cabconsumidor/app/core/theme/app_theme.dart';
 import 'package:cabconsumidor/app/modules/home/stores/obscure_balance_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppWidget extends StatefulWidget {
@@ -12,6 +13,16 @@ class AppWidget extends StatefulWidget {
 }
 
 class _AppWidgetState extends State<AppWidget> {
+  @override
+  void initState() {
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+      ],
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MyAppLifecycleObserver(

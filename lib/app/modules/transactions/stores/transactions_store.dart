@@ -20,7 +20,7 @@ class TransactionsStore extends Store<List<TransactionRegisterModel>> {
       initialDate: Formaters.dateToStringDateWithHifen(
         DateTime.now().subtract(
           const Duration(
-            days: 30,
+            days: 7,
           ),
         ),
       ),

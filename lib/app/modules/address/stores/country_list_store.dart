@@ -6,7 +6,7 @@ import 'package:flutter_triple/flutter_triple.dart';
 class CountryListStore extends Store<List<CountryModel>> {
   CountryListStore() : super([]);
   final AddressRepository _repository = Modular.get();
-  CountryModel? selectedCountry;
+  CountryModel? selectedCountry = CountryModel();
 
   Future<void> getCountries() async {
     setLoading(true);

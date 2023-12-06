@@ -4,11 +4,13 @@ class CountryModel {
   int? id;
   String? name;
   String? uf;
+  String? uheueh;
 
   CountryModel({
     this.id,
     this.name,
     this.uf,
+    this.uheueh,
   });
 
   Map<String, dynamic> toMap() {

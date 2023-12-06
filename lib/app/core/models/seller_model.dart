@@ -24,6 +24,7 @@ class SellerModel {
   num? distance;
   num? latitude;
   num? longitude;
+  bool? isFavorite;
 
   SellerModel({
     this.pk,
@@ -48,6 +49,7 @@ class SellerModel {
     this.distance,
     this.latitude,
     this.longitude,
+    this.isFavorite,
   });
 
   Map<String, dynamic> toMap() {
@@ -74,6 +76,7 @@ class SellerModel {
       'distancia': distance,
       'latitude': latitude,
       'longitude': longitude,
+      'favorito': isFavorite,
     };
   }
 
@@ -104,6 +107,7 @@ class SellerModel {
       latitude: map['latitude'] != null ? map['latitude'] as num : 0.0,
       longitude: map['longitude'] != null ? map['longitude'] as num : 0.0,
       distance: map['distancia'] != null ? map['distancia'] as num : 0.0,
+      isFavorite: map['favorito'] != null ? map['favorito'] as bool : false,
     );
   }
 

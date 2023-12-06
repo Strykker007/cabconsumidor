@@ -47,7 +47,7 @@ class CustomDropdownTextField<T> extends StatelessWidget {
               fontSize: 12,
             ),
         controller: TextEditingController(
-          text: "Carregando informações...",
+          text: "Buscando informações...",
         ),
       );
     }

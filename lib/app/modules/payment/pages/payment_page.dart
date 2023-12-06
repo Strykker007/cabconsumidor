@@ -12,7 +12,6 @@ import 'package:cabconsumidor/app/core/shared/widgets/text_field/text_form_field
 import 'package:cabconsumidor/app/core/stores/user_store.dart';
 import 'package:cabconsumidor/app/core/utils/utils.dart';
 import 'package:cabconsumidor/app/modules/payment/widgets/seller_details_widget.dart';
-import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';

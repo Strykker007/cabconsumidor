@@ -10,16 +10,10 @@ environment:
 
 dependencies:
   brasil_fields: ^1.13.1
-  cloud_firestore: ^4.3.1
   cupertino_icons: ^1.0.2
   custom_navigation_bar: ^0.8.2
   debounce_throttle: ^2.0.0
   dio: ^5.2.1+1
-  firebase_auth: ^4.6.3
-  firebase_core: ^2.2.0
-  firebase_core_platform_interface: 4.8.0
-  firebase_messaging: ^14.6.3
-  firebase_storage: ^11.2.3
   flutter:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0
@@ -31,7 +25,8 @@ dependencies:
   flutter_svg: ^1.0.3
   flutter_triple: ^2.0.1
   google_fonts: ^4.0.0
-  http: ^0.13.0
+  http: ^1.1.0
+  image_cropper: ^5.0.0
   image_picker: ^0.8.9
   intl: ^0.18.1
   location: ^5.0.3

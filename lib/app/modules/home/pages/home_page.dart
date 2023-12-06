@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     transactionsStore.params.initialDate = Formaters.dateToStringDateWithHifen(
       DateTime.now().subtract(
         const Duration(
-          days: 60,
+          days: 7,
         ),
       ),
     );

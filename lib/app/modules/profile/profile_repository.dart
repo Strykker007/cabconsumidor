@@ -22,6 +22,22 @@ class ProfileRepository {
     }
   }
 
+  Future<UserModel?> getUserById(String token, String userId) async {
+    try {
+      final response = await client.get(
+        '/user/$userId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return UserModel.fromMap(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> getCities() async {
     try {
       await client.put('/cidade/');

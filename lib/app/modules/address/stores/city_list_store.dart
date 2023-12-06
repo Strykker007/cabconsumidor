@@ -4,9 +4,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
 class CityListStore extends Store<List<CityModel>> {
-  CityListStore() : super([]);
+  CityListStore() : super(List.empty(growable: true));
   final AddressRepository _repository = Modular.get();
-  CityModel? selectedCity;
+  CityModel? selectedCity = CityModel();
+
+  void clearFilters() {
+    selectedCity = CityModel();
+    update([]);
+  }
 
   Future<void> getCities(int countryId) async {
     setLoading(true);

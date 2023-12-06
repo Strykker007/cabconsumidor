@@ -63,7 +63,7 @@ class _BalanceWidgetState extends State<BalanceWidget> {
                           ),
                     ),
                     Text(
-                      'Hoje, ${DateTime.now().day} ${Utils.getShortMonthName(DateTime.now().month)}.',
+                      'Hoje, ${DateTime.now().day} ${Utils.getShortMonthName(DateTime.now().month)}, ${DateTime.now().year}.',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],

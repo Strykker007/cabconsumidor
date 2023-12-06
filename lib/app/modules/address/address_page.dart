@@ -171,7 +171,9 @@ class AddressPageState extends State<AddressPage> {
                       isLoading: triple.isLoading,
                       dropdownOptions: cityListStore.state,
                       selectedOption: cityListStore.selectedCity,
-                      displayItemName: (state) => state.name!,
+                      displayItemName: (state) => countryStore.isLoading
+                          ? 'Buscando informações...'
+                          : state.name ?? '',
                       selectValueText: countryStore.state.isEmpty
                           ? 'Selecione primeiro o Estado'
                           : 'Selecione a cidade',

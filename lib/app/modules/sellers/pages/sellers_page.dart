@@ -60,7 +60,7 @@ class SellersPageState extends State<SellersPage> {
                 return TextFormFieldWidget(
                   controller: searchController,
                   hintText: 'Pesquisar',
-                  suffix: IconButton(
+                  suffixIcon: IconButton(
                     icon: searchController.text.isNotEmpty
                         ? const Icon(Icons.close)
                         : const Icon(Icons.search),

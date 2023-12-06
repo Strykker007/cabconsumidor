@@ -1,9 +1,7 @@
 import 'dart:developer';
 
-import 'package:cabconsumidor/app/core/models/user_model.dart';
 import 'package:cabconsumidor/app/core/models/user_preferences_model.dart';
 import 'package:cabconsumidor/app/core/services/preferences_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 
 class SplashRepository {
