@@ -5,7 +5,7 @@ import 'package:cabconsumidor/app/core/shared/widgets/appbar/app_bar_widget.dart
 import 'package:cabconsumidor/app/core/shared/widgets/button/default_button_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/error/request_error_widget.dart';
 import 'package:cabconsumidor/app/core/stores/user_store.dart';
-import 'package:cabconsumidor/app/modules/config/widgets/config_profile_photo_widget.dart';
+import 'package:cabconsumidor/app/core/shared/widgets/profile_photo/profile_photo_widget.dart';
 import 'package:cabconsumidor/app/modules/config/stores/config_store.dart';
 import 'package:cabconsumidor/app/modules/config/stores/version_store.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,7 +62,7 @@ class ConfigPageState extends State<ConfigPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
                   children: <Widget>[
-                    const ConfigProfilePhotoWidget(),
+                    const ProfilePhotoWidget(),
                     const SizedBox(height: 20),
                     Text(
                       store.userStore.state.user!.name!,

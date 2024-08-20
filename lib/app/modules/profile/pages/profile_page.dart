@@ -3,6 +3,7 @@ import 'package:cabconsumidor/app/core/services/helpers.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/appbar/app_bar_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/button/default_button_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/error/request_error_widget.dart';
+import 'package:cabconsumidor/app/core/shared/widgets/profile_photo/profile_photo_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/success/success_widget.dart';
 import 'package:cabconsumidor/app/core/shared/widgets/text_field/text_form_field_widget.dart';
 import 'package:cabconsumidor/app/core/utils/masks.dart';
@@ -118,55 +119,7 @@ class ProfilePageState extends State<ProfilePage> {
                                           ),
                                         );
                                       }
-                                      return store.userStore.state.user!
-                                                  .profilePhoto ==
-                                              null
-                                          ? SvgPicture.asset(
-                                              'assets/profile/profile_image.svg',
-                                              height: 50,
-                                              width: 50,
-                                            )
-                                          : ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              child: Image.network(
-                                                store.userStore.state.user!
-                                                        .profilePhoto!
-                                                        .contains('http')
-                                                    ? store.userStore.state
-                                                        .user!.profilePhoto!
-                                                    : dotenv.env['BASE_URL']! +
-                                                        store
-                                                            .userStore
-                                                            .state
-                                                            .user!
-                                                            .profilePhoto!,
-                                                height: 50,
-                                                width: 50,
-                                                fit: BoxFit.fill,
-                                                loadingBuilder: (context, child,
-                                                    loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            );
+                                      return const ProfilePhotoWidget();
                                     },
                                   ),
                                 ),

@@ -8,3 +8,5 @@ cabconsumidor/.vscode/launch.json
 .vscode
 
 .env
+
+ios/Podfile.lock

@@ -23,7 +23,7 @@ class SplashRepository {
   Future<void> verifyToken(String token) async {
     try {
       final reponse = await _client.post(
-        '/consumidor/token-verify/',
+        '/consumidor/tokne-verify/',
         data: {
           'token': token,
         },

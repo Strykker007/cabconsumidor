@@ -1,0 +1,1 @@
+ /Users/tiagolima/Projetos/cabconsumidor/.dart_tool/flutter_build/e16cac2fd58399b3ffdd1e5cee2fb18e/native_assets.yaml: 
